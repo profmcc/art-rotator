@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art Rotator</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1b1b1f; --muted: #5f5f6b;
+    --line: #e4e1da; --accent: #8a6a3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131316; --card: #1a1a1f; --ink: #ececf1; --muted: #a1a1ad;
+      --line: #2c2c34; --accent: #d6b071;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 34px; }
+  .mark { font-size: 44px; line-height: 1; }
+  h1 { font-size: 30px; margin: 14px 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 15px; margin: 0; }
+  .links { display: grid; gap: 14px; margin: 34px 0; }
+  .links a {
+    display: block; background: var(--card); border: 1px solid var(--line);
+    border-radius: 12px; padding: 18px 22px; text-decoration: none; color: inherit;
+  }
+  .links a:hover { border-color: var(--accent); }
+  .links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .links strong { display: block; font-size: 18px; color: var(--accent); }
+  .links span { color: var(--muted); font-size: 15px; }
+  p { color: var(--muted); font-size: 15px; }
+  footer {
+    margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line);
+    color: var(--muted); font-size: 14px;
+  }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="mark">🖼️</div>
+  <h1>Art Rotator</h1>
+  <p class="sub">Open-access museum art on your Lock Screen and desktop</p>
+</header>
+
+<p>Art Rotator keeps a rotating collection of public-domain and openly licensed
+artwork from museums around the world — the Met, the Art Institute of Chicago,
+the Cleveland Museum of Art, the National Gallery of Art, SMK in Copenhagen,
+Japan Search and Wikimedia Commons — cropped to your screen and captioned with
+the title, artist and year.</p>
+
+<div class="links">
+  <a href="support.html">
+    <strong>Support</strong>
+    <span>Setup, troubleshooting, and how to reach a real person</span>
+  </a>
+  <a href="privacy.html">
+    <strong>Privacy Policy</strong>
+    <span>What the app collects: nothing. In detail, and why that is structural</span>
+  </a>
+</div>
+
+<p>Art Rotator collects no personal data, has no accounts, no analytics and no
+tracking. It downloads artwork and never uploads anything.</p>
+
+<footer>
+  Questions: <a href="mailto:profmccarthy@protonmail.com">profmccarthy@protonmail.com</a>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# This repository is PUBLIC. It exists for one reason: to host the privacy
+# policy and support pages that App Store Connect requires at a stable URL.
+#
+# The app source is deliberately NOT published. Everything is ignored except
+# docs/ and .github/, so a stray `git add .` cannot put an unreleased codebase
+# on the internet. That has to be a decision, not an accident.
+#
+# Note that the app's own README.md is a developer document and is ignored on
+# purpose; the public repository landing page is .github/README.md.
+#
+# To open-source the app later: delete this file deliberately, review what is
+# about to be committed with `git status`, and push.
+
+/*
+
+!.gitignore
+!docs/
+!.github/

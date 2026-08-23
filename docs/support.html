@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Art Rotator</title>
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1b1b1f; --muted: #5f5f6b;
+    --line: #e4e1da; --accent: #8a6a3b; --chip: #fff4d6; --chip-line: #e0c67a;
+    --code: #f3f0ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131316; --card: #1a1a1f; --ink: #ececf1; --muted: #a1a1ad;
+      --line: #2c2c34; --accent: #d6b071; --chip: #3a3020; --chip-line: #6b5730;
+      --code: #22222a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 40px 20px 80px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 34px; }
+  .mark { font-size: 44px; line-height: 1; }
+  h1 { font-size: 30px; margin: 14px 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 15px; margin: 0; }
+  .contact {
+    background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--accent);
+    border-radius: 12px; padding: 20px 22px; margin: 0 0 36px; text-align: center;
+  }
+  .contact p { margin: 0 0 6px; }
+  .contact .addr { font-size: 20px; font-weight: 600; }
+  h2 {
+    font-size: 20px; margin: 34px 0 10px; padding-top: 20px;
+    border-top: 1px solid var(--line); letter-spacing: -0.01em;
+  }
+  h2:first-of-type { border-top: 0; padding-top: 0; }
+  h3 { font-size: 16.5px; margin: 24px 0 4px; }
+  ol, ul { padding-left: 22px; }
+  li { margin: 7px 0; }
+  .muted { color: var(--muted); }
+  .q {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 16px 20px; margin: 12px 0;
+  }
+  .q h3 { margin-top: 0; }
+  .q p:last-child { margin-bottom: 0; }
+  kbd {
+    background: var(--code); border: 1px solid var(--line); border-bottom-width: 2px;
+    border-radius: 5px; padding: 1px 6px; font: inherit; font-size: 0.88em; white-space: nowrap;
+  }
+  footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="mark">🖼</div>
+  <h1>Art Rotator Support</h1>
+  <p class="sub">Museum art on your Lock Screen · updated 13 August 2026</p>
+</header>
+
+<div class="contact">
+  <p class="muted">Questions, bugs, or anything not answered below:</p>
+  <p class="addr"><a href="mailto:profmccarthy@protonmail.com">profmccarthy@protonmail.com</a></p>
+  <p class="muted">A real person reads this. Please include your iPhone model and
+  iOS version — it usually saves a round trip.</p>
+</div>
+
+<h2>What the app does</h2>
+<p>Art Rotator downloads public-domain artwork from museum open-access
+collections — The Met, the Art Institute of Chicago, the Cleveland Museum of Art,
+SMK in Copenhagen, Japan Search, and Wikimedia Commons — crops each piece to your
+screen, prints the title, artist and year onto it in a frosted-glass caption, and
+keeps a stack of them ready so your Lock Screen can rotate through real art
+instead of a stock photo.</p>
+
+<h2>First-time setup</h2>
+<p>The one thing to understand up front: <strong>iOS does not allow any app to
+change your wallpaper.</strong> Apple provides no API for it. So the app prepares
+finished wallpapers into a photo album, and iOS rotates them for you. Pick
+whichever of these suits you.</p>
+
+<h3>Option A — Photo Shuffle (easiest, changes hourly)</h3>
+<ol>
+  <li>Open Art Rotator and tap <kbd>Fetch a batch now</kbd>. Allow photo access
+      when asked. Wait about a minute.</li>
+  <li>Press and hold your Lock Screen, tap <kbd>Customize</kbd>, then <kbd>+</kbd>
+      to add a wallpaper.</li>
+  <li>Choose <kbd>Photo Shuffle</kbd> → <kbd>Album</kbd> → <strong>Art
+      Rotator</strong>.</li>
+  <li>Set Shuffle Frequency to <kbd>Hourly</kbd>, then <kbd>Add</kbd> →
+      <kbd>Set as Wallpaper Pair</kbd>.</li>
+</ol>
+
+<h3>Option B — Shortcuts (any interval you like, including 30 minutes)</h3>
+<ol>
+  <li>Open <strong>Shortcuts</strong> → <kbd>Automation</kbd> → <kbd>+</kbd>.</li>
+  <li>Choose <kbd>Time of Day</kbd>, pick a start time, set <kbd>Repeat:
+      Hourly</kbd>, then Next.</li>
+  <li>Choose <kbd>New Blank Automation</kbd>.</li>
+  <li>Add the action <strong>Get Next Artwork Image</strong> (it appears under
+      Art Rotator).</li>
+  <li>Add the action <strong>Set Wallpaper</strong>. Tap its image field and
+      choose the output of the previous step. Pick Lock Screen, Home Screen, or
+      both.</li>
+  <li>Turn <strong>off</strong> “Ask Before Running”, then Done.</li>
+  <li>For every 30 minutes, make a second identical automation starting 30 minutes
+      after the first — iOS only repeats hourly, so two staggered automations give
+      you a half-hour cadence.</li>
+</ol>
+
+<h2>Common questions</h2>
+
+<div class="q">
+  <h3>My wallpaper isn't changing</h3>
+  <p>Almost always one of three things. Check the app shows artworks ready in the
+  <em>Cache</em> section — if it says 0, tap <kbd>Fetch a batch now</kbd>. Then
+  confirm your Lock Screen is actually set to <strong>Photo Shuffle</strong>
+  pointed at the <strong>Art Rotator</strong> album, not to a static image. If you
+  used the Shortcuts route, open Shortcuts → Automation and check the automation is
+  enabled and “Ask Before Running” is off.</p>
+</div>
+
+<div class="q">
+  <h3>The cache isn't filling up on its own</h3>
+  <p>By design, batches only download while your iPhone is <strong>charging and on
+  Wi-Fi</strong>, so the app never spends your mobile data or battery. Plug in on
+  Wi-Fi and leave it for a while. iOS also decides when background tasks actually
+  run, so it can take a few hours to top up on its own. You can always tap
+  <kbd>Fetch a batch now</kbd> to fill it immediately. Both conditions can be
+  turned off in the app if you would rather it fetch any time.</p>
+</div>
+
+<div class="q">
+  <h3>I don't see the Dynamic Island controls</h3>
+  <p>Three requirements: an iPhone 14 Pro or newer (older iPhones have no Dynamic
+  Island), the app must have been opened at least once, and the app must be in the
+  <strong>background</strong> — while it is on screen, iOS shows a plain pill
+  instead. Long-press the island to expand it and reveal thumbs up/down, save,
+  zoom, website and skip. If it never appears, check Settings → Art Rotator →
+  Live Activities is on.</p>
+  <p class="muted">iOS also ends Live Activities automatically after about eight
+  hours. Opening the app brings it back.</p>
+</div>
+
+<div class="q">
+  <h3>An artwork is cropped oddly, or I want to see the whole thing</h3>
+  <p>Tap the <strong>zoom</strong> button in the expanded Dynamic Island — the two
+  diagonal arrows. That switches the current artwork between filling the screen and
+  showing the entire work with borders. The app already turns very long paintings a
+  quarter turn automatically so that panoramas and scrolls survive a portrait
+  screen, but you can always override it.</p>
+</div>
+
+<div class="q">
+  <h3>I don't want to see a particular artwork</h3>
+  <p>Tap <kbd>Hide</kbd> on the main screen. That artwork is removed immediately
+  and will never be downloaded again. Historical collections include classical
+  nudity, religious imagery and depictions of violence, and Hide is there so you
+  decide what belongs on your own Lock Screen.</p>
+</div>
+
+<div class="q">
+  <h3>What does “Include attribution-required art” do?</h3>
+  <p>Off (the default), the app only uses works that are free worldwide with no
+  conditions — CC0 and Public Domain Mark. On, it also accepts works that are free
+  to reuse <em>with credit</em>, and prints that credit onto the wallpaper beneath
+  the title. It noticeably increases how much Japanese material you see, since much
+  of Japan Search is licensed that way. Anything whose rights cannot be positively
+  identified is never downloaded under either setting.</p>
+</div>
+
+<div class="q">
+  <h3>How much storage and data does it use?</h3>
+  <p>Roughly 1 MB per cached artwork, so the 50–150 slider works out to about
+  50–150 MB. Downloads happen in batches while charging on Wi-Fi. The app requests
+  a screen-sized version of each image rather than the museum's full-resolution
+  master, which is typically eight to twenty times smaller.</p>
+</div>
+
+<div class="q">
+  <h3>Does it drain my battery?</h3>
+  <p>It shouldn't. Between batches iOS suspends the app completely — no background
+  process, no polling, no timers. Work happens in short bursts while you are
+  plugged in.</p>
+</div>
+
+<div class="q">
+  <h3>Where does the art come from, and is it legal to use?</h3>
+  <p>All of it comes from museum and archive open-access programmes, and every
+  item's rights statement is checked before it is downloaded. Anything that cannot
+  be positively identified as freely reusable is skipped. The full list of
+  collections and licences is in the app under <strong>Credits &amp;
+  Licensing</strong>.</p>
+</div>
+
+<div class="q">
+  <h3>How do I remove everything?</h3>
+  <p>Delete the app — that removes its entire data store. The “Art Rotator” album
+  stays in Photos so you don't lose anything unexpectedly; delete it from the
+  Photos app if you want it gone. Remember to switch your Lock Screen back to
+  another wallpaper first.</p>
+</div>
+
+<div class="q">
+  <h3>Can I use it on iPad?</h3>
+  <p>No. The app is iPhone-only. Its wallpapers are rendered at portrait iPhone
+  dimensions and its controls live in the Dynamic Island, neither of which exists
+  on iPad.</p>
+</div>
+
+<h2>Reporting a bug</h2>
+<p>Email <a href="mailto:profmccarthy@protonmail.com">profmccarthy@protonmail.com</a> with:</p>
+<ul>
+  <li>your iPhone model and iOS version;</li>
+  <li>what you expected to happen, and what happened instead;</li>
+  <li>a screenshot if it is something visible;</li>
+  <li>the title of the artwork involved, if it is about a specific image.</li>
+</ul>
+<p class="muted">The app has no analytics, so nothing is reported automatically —
+if you don't tell me, I won't know.</p>
+
+<footer>
+  Art Rotator · <a href="privacy.html">Privacy Policy</a> ·
+  Artwork courtesy of the open-access programmes of The Met, the Art Institute of
+  Chicago, the Cleveland Museum of Art, SMK, Japan Search and Wikimedia Commons.
+</footer>
+
+</div>
+</body>
+</html>
