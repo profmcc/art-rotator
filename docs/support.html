@@ -88,18 +88,24 @@ finished wallpapers into a photo album, and iOS rotates them for you. Pick
 whichever of these suits you.</p>
 
 <h3>Option A — Photo Shuffle (easiest, changes hourly)</h3>
+<p class="muted">This is the route that needs a permission. If you would rather
+grant nothing, use Option B — it works just as well.</p>
 <ol>
-  <li>Open Ars Serena and tap <kbd>Fetch a batch now</kbd>. Allow photo access
-      when asked. Wait about a minute.</li>
+  <li>Open Ars Serena → <kbd>Settings</kbd> → turn on <kbd>Mirror to Photos
+      album</kbd>. iOS asks for photo access at that moment; tap
+      <kbd>Allow</kbd>. (Nothing asks you for anything before this point.)</li>
+  <li>Tap <kbd>Fetch a batch now</kbd> and wait about a minute.</li>
   <li>Press and hold your Lock Screen, tap <kbd>Customize</kbd>, then <kbd>+</kbd>
       to add a wallpaper.</li>
-  <li>Choose <kbd>Photo Shuffle</kbd> → <kbd>Album</kbd> → <strong>Art
-      Rotator</strong>.</li>
+  <li>Choose <kbd>Photo Shuffle</kbd> → <kbd>Album</kbd> → <strong>Ars
+      Serena</strong>.</li>
   <li>Set Shuffle Frequency to <kbd>Hourly</kbd>, then <kbd>Add</kbd> →
       <kbd>Set as Wallpaper Pair</kbd>.</li>
 </ol>
 
-<h3>Option B — Shortcuts (any interval you like, including 30 minutes)</h3>
+<h3>Option B — Shortcuts (any interval, and asks for nothing)</h3>
+<p class="muted">Shortcuts hands the picture straight to the system, so the app
+never touches your photo library and never asks to.</p>
 <ol>
   <li>Open <strong>Shortcuts</strong> → <kbd>Automation</kbd> → <kbd>+</kbd>.</li>
   <li>Choose <kbd>Time of Day</kbd>, pick a start time, set <kbd>Repeat:
@@ -115,6 +121,25 @@ whichever of these suits you.</p>
       after the first — iOS only repeats hourly, so two staggered automations give
       you a half-hour cadence.</li>
 </ol>
+
+<h2>What the app asks you to allow</h2>
+<p><strong>Nothing, unless you choose Option A above.</strong> On a fresh install
+Ars Serena uses no permissions at all — no photos, contacts, location, camera or
+microphone. There is no account, no sign-in, no ads, and nothing to buy.</p>
+<p>Photo library access is the only permission it can ever use. It is off until you
+turn on <em>Mirror to Photos album</em> in Settings, and it is asked for at that
+moment rather than on launch. It exists so Photo Shuffle has an album to rotate
+through: the app creates one album named after itself, adds finished wallpapers,
+and tidies out ones that have rotated away. <strong>It never reads any other photo
+in your library.</strong></p>
+<p><strong>If you decline</strong>, the switch goes back off and that one feature
+stays off. Everything else keeps working — the app still collects art, and the
+Shortcuts route still puts it on your Lock Screen. You can change your mind any
+time in Settings → Privacy &amp; Security → Photos → Ars Serena.</p>
+<p><strong>What it never does:</strong> it uploads nothing, anywhere, ever. No
+analytics, no crash reporting, no identifiers, no profile. Its only outbound
+requests download public-domain artwork and titles from the six museums listed on
+the <a href="privacy.html">privacy page</a>.</p>
 
 <h2>Common questions</h2>
 

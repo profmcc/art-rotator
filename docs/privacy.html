@@ -125,11 +125,18 @@ private container and your own photo library. None of it is transmitted anywhere
 </table>
 </div>
 
-<h3>Photo library access</h3>
-<p>The app requests photo library permission for one purpose: to create and manage
-its own “Ars Serena” album. It adds finished wallpapers to that album and removes
-ones that have rotated out. <strong>It never reads, opens, uploads or analyses any
-other photo in your library.</strong></p>
+<h3>Photo library access — optional, and off by default</h3>
+<p><strong>The app requests no permissions at all unless you ask it to.</strong> Photo
+library access is the only permission it can ever use, it is off when you install
+the app, and it is requested at the moment you turn on <em>Mirror to Photos
+album</em> in Settings — not on launch, and not in the background.</p>
+<p>It exists for one purpose: to create and manage the app’s own “Ars Serena” album,
+adding finished wallpapers and removing ones that have rotated out, so that the
+system’s Photo Shuffle has something to rotate through. <strong>It never reads,
+opens, uploads or analyses any other photo in your library.</strong></p>
+<p>Declining, or never enabling it, leaves the app fully functional: the Shortcuts
+method described in the app’s setup guide puts artwork on your Lock Screen without
+any photo library access whatsoever.</p>
 
 <h2>Network activity and third parties</h2>
 <p>The app makes outbound requests to exactly one category of destination: the
