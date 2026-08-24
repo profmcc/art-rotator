@@ -37,9 +37,27 @@ Live on GitHub Pages from `profmcc/art-rotator`, branch `main`, folder `/docs`:
 Paste the last two into App Store Connect under **App Privacy → Privacy Policy
 URL** and **App Information → Support URL**.
 
-To update a page: edit it here, commit, push. Pages redeploys in about a
-minute. The paths must keep resolving for as long as the app is listed, so
-rename nothing.
+**The pages live in two repositories on purpose**, and that has one sharp
+edge worth knowing:
+
+| | |
+|---|---|
+| `profmcc/art-rotator-ios` (private) | source of truth — edit the pages here |
+| `profmcc/art-rotator` (**public**) | docs-only; this is what Pages serves |
+
+The split lets the App Store URLs be public without publishing an unreleased
+codebase. The cost is that **editing a page here does not update the live
+site** — committing to the private repo changes nothing that a reviewer can
+see. Use the script, which is the missing step:
+
+```bash
+bash docs/publish.sh --check   # compare against live, change nothing
+bash docs/publish.sh           # push the differences and redeploy
+```
+
+`--check` exits non-zero when they differ, so it works as a pre-submission
+guard. Pages redeploys in about a minute. The paths must keep resolving for as
+long as the app is listed, so rename nothing.
 
 **That repository is public and the app source is not in it.** A `.gitignore`
 at the repo root excludes everything except `docs/` and `.github/`, so a stray
