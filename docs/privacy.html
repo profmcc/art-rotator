@@ -44,6 +44,7 @@
   table { width: 100%; border-collapse: collapse; margin: 14px 0; font-size: 15px; }
   th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
   th { color: var(--muted); font-weight: 600; }
+  td.c, th.c { text-align: center; white-space: nowrap; }
   .scroll { overflow-x: auto; }
   code { background: var(--card); border: 1px solid var(--line); border-radius: 5px; padding: 1px 6px; font-size: 0.9em; }
   footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 14px; }
@@ -56,14 +57,15 @@
 <header>
   <div class="mark">🖼</div>
   <h1>Privacy Policy</h1>
-  <p class="sub">Ars Serena for iOS · Last updated 23 August 2026</p>
+  <p class="sub">Ars Serena for iPhone, Android and Mac · Last updated 14 September 2026</p>
 </header>
 
 <div class="summary">
   <p><strong>Ars Serena collects nothing about you.</strong> There is no account,
-  no analytics, no advertising, no tracking, and no server belonging to this app.
-  Everything it creates stays on your iPhone, and deleting the app deletes all of
-  it. The rest of this page explains that in the detail that privacy law expects.</p>
+  no analytics, no advertising, no tracking, and no server belonging to this app,
+  on any of the three platforms. Everything it creates stays on your own device,
+  and removing the app removes it. The rest of this page explains that in the
+  detail that privacy law expects, platform by platform where they differ.</p>
 </div>
 
 <h2>Who is responsible</h2>
@@ -74,105 +76,171 @@ collected or processed, no Data Protection Officer is appointed; the contact
 above is the responsible person for all privacy enquiries and will answer them
 directly.</p>
 
-<h2>What the app collects</h2>
-<p><strong>No personal data whatsoever.</strong> The app has no sign-up, no login,
-no profile, no contact form, no telemetry and no crash-reporting SDK. It does not
-read your photos, contacts, location, calendar, health data, microphone or camera.
-It does not use the advertising identifier, and it performs no tracking as defined
-by Apple's App Tracking Transparency framework — so it never shows a tracking
-prompt, because it has nothing to ask for.</p>
+<h2>Which apps this covers</h2>
+<ul>
+  <li><strong>Ars Serena for iPhone</strong>, distributed through the App Store.</li>
+  <li><strong>Ars Serena for Android</strong>, distributed through Google Play
+      (package <code>io.github.profmcc.arsserena</code>).</li>
+  <li><strong>Ars Serena for Mac</strong>, a menu-bar app distributed as a direct download.</li>
+</ul>
 
-<h2>What the app stores, and where</h2>
-<p>All of the following is written only to your own device, inside the app's
-private container and your own photo library. None of it is transmitted anywhere.</p>
+<h2>What the apps collect</h2>
+<p><strong>No personal data whatsoever.</strong> None of the apps has a sign-up, a
+login, a profile, a contact form, telemetry or a crash-reporting SDK. They do not
+read your contacts, location, calendar, health data, microphone or camera. They do
+not use an advertising identifier, and they perform no tracking — so the iPhone
+app never shows Apple's tracking prompt, because it has nothing to ask for.</p>
+
+<h2>What the apps store, and where</h2>
+<p>Everything below is written only to your own device. None of it is transmitted
+to the developer or to anyone else.</p>
 
 <div class="scroll">
 <table>
   <tr><th>What</th><th>Why it exists</th><th>How long it is kept</th></tr>
   <tr>
-    <td>Cached artwork images and their titles, artists, dates, sources and licence terms</td>
+    <td>Downloaded artwork images and their titles, artists, dates, sources and licence terms</td>
     <td>So wallpapers are ready without needing a network connection</td>
-    <td>Until the artwork rotates out of the cache, you hide it, or you delete the app</td>
+    <td>Until the artwork rotates out, you remove it, or you remove the app</td>
   </tr>
   <tr>
     <td>A list of artwork identifiers already shown</td>
     <td>So the same artwork is never repeated</td>
-    <td>Until you delete the app</td>
+    <td>Until you remove the app and its data</td>
   </tr>
   <tr>
-    <td>Your settings (cache size, charging and Wi-Fi conditions, licensing preference)</td>
+    <td>Your settings (schedule, framing, licensing preference and similar)</td>
     <td>To remember your choices between launches</td>
-    <td>Until changed or you delete the app</td>
+    <td>Until changed or you remove the app</td>
   </tr>
   <tr>
-    <td>Local preference weights from the thumbs-up / thumbs-down buttons</td>
+    <td>Artworks you save or mark as favourites, and any you hide</td>
+    <td>Your collection, and your “never show me this again” choices</td>
+    <td>Until you remove them or the app</td>
+  </tr>
+  <tr>
+    <td>Local preference weights from like and dislike buttons, where the app has them</td>
     <td>To show more of the artists you like. These are numbers attached to artist
-        names, never to you, and never leave the device</td>
-    <td>Until you delete the app</td>
-  </tr>
-  <tr>
-    <td>Artworks you save, and artworks you hide</td>
-    <td>Your favourites, and your permanent “never show me this again” list</td>
-    <td>Until you delete the app</td>
-  </tr>
-  <tr>
-    <td>An album named “Ars Serena” in your photo library</td>
-    <td>So iOS can rotate your Lock Screen through it — iOS provides no way for an
-        app to set the wallpaper directly</td>
-    <td>Managed by the app while installed; the album remains in Photos after you
-        delete the app, and you can delete it yourself at any time</td>
+        names, never to you</td>
+    <td>Until you remove the app</td>
   </tr>
 </table>
 </div>
 
-<h3>Photo library access — optional, and off by default</h3>
-<p><strong>The app requests no permissions at all unless you ask it to.</strong> Photo
-library access is the only permission it can ever use, it is off when you install
-the app, and it is requested at the moment you turn on <em>Mirror to Photos
+<h3>iPhone</h3>
+<p>Stored inside the app's private container, which its widgets share. If you turn
+on <em>Mirror to Photos album</em>, finished wallpapers are also added to an album
+named “Ars Serena” in your photo library, so that iOS can rotate your Lock Screen
+through it; iOS provides no way for an app to set the wallpaper directly. That
+album remains in Photos if you delete the app, and you can delete it yourself at
+any time. Like any app's data, the container is included in your iPhone's own
+iCloud or computer backup if you use one; the developer has no access to those
+backups.</p>
+
+<h3>Android</h3>
+<p>Stored in the app's private storage, which other apps cannot read. If you choose
+a lock-screen picture from your photos, the system photo picker hands the app that
+one picture, and a copy is kept in the same private storage.</p>
+<p>If Android backup is turned on for your Google account, Android includes the
+app's settings, the list of artworks already shown, your saved shelves and the
+lock-screen picture you chose, so they return on a new phone. That backup is made
+and held by Google under Google's terms, and the developer has no access to it.
+The download queue and the short history of recent artworks are deliberately left
+out of it.</p>
+
+<h3>Mac</h3>
+<p>Stored in a folder in your own Pictures folder, <code>~/Pictures/ArtWallpapers</code>,
+which you can open and inspect at any time. Settings are small files in the same
+folder, and it also holds a local log of which artworks were shown and a local
+diagnostics log. The saved-artworks gallery is an ordinary web page in that folder;
+it opens in your browser from the disk and loads nothing from the internet. If you
+choose to add free API keys for extra museums, they are kept only in
+<code>~/.config/art-rotator/keys.json</code>, a file you create yourself.</p>
+
+<h2>Permissions</h2>
+
+<h3>iPhone — photo library access, optional and off by default</h3>
+<p><strong>The iPhone app requests no permissions at all unless you ask it to.</strong>
+Photo library access is the only permission it can ever use. It is off when you
+install the app, and it is requested at the moment you turn on <em>Mirror to Photos
 album</em> in Settings — not on launch, and not in the background.</p>
-<p>It exists for one purpose: to create and manage the app’s own “Ars Serena” album,
+<p>It exists for one purpose: to create and manage the app's own “Ars Serena” album,
 adding finished wallpapers and removing ones that have rotated out, so that the
-system’s Photo Shuffle has something to rotate through. <strong>It never reads,
-opens, uploads or analyses any other photo in your library.</strong></p>
-<p>Declining, or never enabling it, leaves the app fully functional: the Shortcuts
-method described in the app’s setup guide puts artwork on your Lock Screen without
-any photo library access whatsoever.</p>
+system's Photo Shuffle has something to rotate through. <strong>It never reads,
+opens, uploads or analyses any other photo in your library.</strong> Declining, or
+never enabling it, leaves the app fully functional: the Shortcuts method described
+in the app's setup guide puts artwork on your Lock Screen without any photo library
+access.</p>
+
+<h3>Android — four permissions, none of which ever shows a prompt</h3>
+<p>All four are what Android calls normal permissions: granted at install, never
+asked about, and listed on the Play Store page.</p>
+<div class="scroll">
+<table>
+  <tr><th>As Google Play shows it</th><th>What the app uses it for</th></tr>
+  <tr><td>Have full network access</td><td>Downloading artwork from the museums listed below</td></tr>
+  <tr><td>Set wallpaper</td><td>Putting the artwork on your home screen, and on your lock screen if you choose</td></tr>
+  <tr><td>View network connections</td><td>Required by Android to wait for Wi-Fi before downloading. The app never inspects your connection itself</td></tr>
+  <tr><td>Run at startup</td><td>Keeping the wallpaper schedule after the phone restarts. Android restores the schedule itself; the app runs no code at startup</td></tr>
+</table>
+</div>
+<p>Choosing a lock-screen picture uses the system photo picker, which needs no
+permission and gives the app only the one picture you pick. The app never sees
+the rest of your photos.</p>
+
+<h3>Mac — no permission prompts</h3>
+<p>The Mac app asks for no permissions. It sets the desktop picture through macOS's
+own interface for doing so, which needs none. To change the artwork on schedule
+when its menu is closed, it registers a login item and a background agent, both
+visible and switchable in System Settings → General → Login Items &amp; Extensions.</p>
 
 <h2>Network activity and third parties</h2>
-<p>The app makes outbound requests to exactly one category of destination: the
-public open-access APIs of museums and archives, over HTTPS, to download
-public-domain artwork and its descriptive metadata. These are:</p>
-<ul>
-  <li>The Metropolitan Museum of Art (New York)</li>
-  <li>Art Institute of Chicago</li>
-  <li>Cleveland Museum of Art</li>
-  <li>SMK — National Gallery of Denmark</li>
-  <li>Japan Search, operated by the National Diet Library (Japan)</li>
-  <li>Wikimedia Commons</li>
-</ul>
-<p>These requests are <strong>downloads only</strong>. They carry a generic
-application name and the search terms used to find artwork. They carry no account,
-no identifier, no device fingerprint and nothing about you.</p>
-<p class="muted">One unavoidable technical disclosure, stated plainly: as with
-loading any web page, those servers necessarily see the IP address the request
-comes from, and each institution's own privacy policy governs what it does with
-its server logs. This app has no influence over that and receives nothing back
-from them except artwork and metadata.</p>
-<p>There are no analytics providers, no advertising networks, no social SDKs, no
-payment processors and no third-party software development kits of any kind
-embedded in this app.</p>
+<p>The apps make outbound requests to exactly one kind of destination: the public
+open-access services of museums and archives, over HTTPS, to download
+public-domain and openly licensed artwork and its descriptive metadata.</p>
 
-<h3>Artificial intelligence services</h3>
-<p>The app does not send anything to any external AI or machine-learning service.
-No prompts, no images and no text leave the device for processing.</p>
+<div class="scroll">
+<table>
+  <tr><th>Institution</th><th class="c">iPhone</th><th class="c">Android</th><th class="c">Mac</th></tr>
+  <tr><td>The Metropolitan Museum of Art (New York)</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+  <tr><td>Art Institute of Chicago</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+  <tr><td>Cleveland Museum of Art</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+  <tr><td>SMK — National Gallery of Denmark</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+  <tr><td>Wikimedia Commons</td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td></tr>
+  <tr><td>Japan Search, operated by the National Diet Library (Japan)</td><td class="c">✓</td><td class="c"></td><td class="c">✓</td></tr>
+  <tr><td>National Gallery of Art (Washington), whose open data files are hosted on GitHub</td><td class="c"></td><td class="c"></td><td class="c">✓</td></tr>
+  <tr><td>Smithsonian Institution, Harvard Art Museums, Europeana and the Rijksmuseum — only if you add your own free API key</td><td class="c"></td><td class="c"></td><td class="c">✓</td></tr>
+</table>
+</div>
+
+<p>These requests are <strong>downloads only</strong>. They carry a generic
+application name and search terms chosen by the app. They carry no account, no
+identifier, no device fingerprint and nothing about you. An API key you add on the
+Mac is sent only to the institution that issued it, because its service requires it.</p>
+<p class="muted">One unavoidable technical disclosure, stated plainly: as with
+loading any web page, those servers necessarily see the IP address a request comes
+from, and each institution's own privacy policy governs what it does with its server
+logs. The apps have no influence over that and receive nothing back except artwork
+and metadata.</p>
+<p>When you tap or click to open an artwork's page, it opens in your web browser,
+and from then on you are visiting that museum's website under its own policy.</p>
+<p>There are no analytics providers, no advertising networks, no social SDKs, no
+payment processors and no third-party software development kits of any kind in
+any of the apps.</p>
+
+<h3>Artificial intelligence and image analysis</h3>
+<p>The apps send nothing to any external AI or machine-learning service. No prompts,
+no images and no text leave the device for processing. Where an app examines an
+artwork — to decide where to crop it, or to recognise a photograph of a framed
+object — that happens on the device, using the operating system's own frameworks.</p>
 
 <h2>Legal basis for processing</h2>
 <p>Under the EU/UK GDPR, Thailand's Personal Data Protection Act B.E. 2562 (PDPA)
 and comparable frameworks, a legal basis is required to process personal data.
-<strong>This app processes no personal data, so no legal basis is engaged.</strong>
+<strong>These apps process no personal data, so no legal basis is engaged.</strong>
 The only processing that occurs is the technically necessary transmission of a
-network request to a museum's server, which is performed at your instruction when
-the app fetches artwork, and is necessary to provide the function you asked for.</p>
+network request to a museum's server, which is performed when the app fetches
+artwork, and is necessary to provide the function you installed it for.</p>
 
 <h2>Your rights</h2>
 <p>Privacy law gives you rights to access, correct, delete, restrict, object to,
@@ -180,59 +248,64 @@ and port your personal data, and to withdraw consent as easily as you gave it.
 Those rights are fully satisfied here, and you can exercise them yourself without
 asking anyone:</p>
 <ul>
-  <li><strong>Access</strong> — everything the app holds is visible in the app and
-      in your Photos album. There is no hidden profile, because there is no profile.</li>
-  <li><strong>Deletion</strong> — deleting the app removes its entire data
-      container. The “Ars Serena” photo album can be deleted from the Photos app.
-      Individual artworks can be removed at any time with <em>Hide</em>.</li>
-  <li><strong>Withdrawal of consent</strong> — revoke photo library access at any
-      time in Settings → Privacy &amp; Security → Photos → Ars Serena. The app
-      continues to work; only the album stops updating.</li>
-  <li><strong>Restriction and objection</strong> — turning off automatic batches,
-      or simply not opening the app, stops all network activity entirely.</li>
-  <li><strong>Portability</strong> — saved artworks are ordinary JPEG files and can
-      be exported from Photos like any other image.</li>
+  <li><strong>Access</strong> — everything the apps hold is visible in the app, in
+      your Photos album on iPhone, and as ordinary files in
+      <code>~/Pictures/ArtWallpapers</code> on the Mac. There is no hidden profile,
+      because there is no profile.</li>
+  <li><strong>Deletion</strong> — on iPhone, deleting the app removes its data;
+      the “Ars Serena” album can be deleted from Photos. On Android, uninstall the
+      app, or clear its storage in Settings → Apps → Ars Serena → Storage. On the
+      Mac, quit the app and move it to the Bin, which removes its login item, then
+      delete the <code>ArtWallpapers</code> folder from Pictures. The wallpaper
+      you last had stays until you change it.</li>
+  <li><strong>Withdrawal of consent</strong> — on iPhone, revoke photo library
+      access at any time in Settings → Privacy &amp; Security → Photos → Ars Serena.
+      The app continues to work; only the album stops updating.</li>
+  <li><strong>Restriction and objection</strong> — pausing rotation, turning off
+      automatic downloads where the app offers it, or removing the app stops its
+      network activity.</li>
+  <li><strong>Portability</strong> — saved artworks are ordinary JPEG files.</li>
 </ul>
 <p>There is no data on our side to request, correct or erase, because none is ever
 sent to us. If you would like that confirmed in writing, write to the contact
 address above and it will be confirmed.</p>
 
 <h2>Children</h2>
-<p>The app is not directed at children, collects no data from anyone regardless of
-age, and has no social features, messaging, user accounts or user-generated
-content. It therefore does not knowingly collect personal information from
-children under 13 (COPPA) or under 16 (GDPR), because it does not collect personal
+<p>The apps are not directed at children, collect no data from anyone regardless of
+age, and have no social features, messaging, user accounts or user-generated
+content. They therefore do not knowingly collect personal information from children
+under 13 (COPPA) or under 16 (GDPR), because they do not collect personal
 information from anyone.</p>
-<p>Please note the app displays works from historical museum collections, which
-include classical and artistic nudity, religious imagery and depictions of
-violence. The App Store age rating reflects this. Any individual work can be
-removed permanently with the <em>Hide</em> button.</p>
+<p>Please note that the apps display works from historical museum collections, which
+include classical and artistic nudity, religious imagery and depictions of violence.
+The App Store and Google Play age ratings reflect this.</p>
 
 <h2>Data security</h2>
 <p>All network requests use HTTPS. No credentials, tokens or personal data exist in
-the app, so there is nothing to encrypt at rest beyond what iOS already protects,
-and nothing that could be exposed by a breach of a server — because there is no
-server.</p>
+the apps, apart from any API key you add to the Mac app yourself, so there is
+nothing to encrypt at rest beyond what your operating system already protects, and
+nothing that could be exposed by a breach of a server — because there is no server.</p>
 
 <h2>Data transfers</h2>
 <p>No personal data is transferred anywhere, internationally or otherwise. The
-museum APIs listed above are operated in the United States, Denmark, Japan and by
-the Wikimedia Foundation; contacting them is a download, not a transfer of your
-data.</p>
+services listed above are operated in the United States, Denmark, Japan, the
+Netherlands and the European Union, and by the Wikimedia Foundation and GitHub;
+contacting them is a download, not a transfer of your data.</p>
 
-<h2>Apple</h2>
-<p>If you have opted in to sharing analytics with Apple, or to Apple's own App
-Analytics for developers, Apple may provide the developer with aggregate,
-anonymised statistics such as install counts and crash reports. This is a service
-of the App Store rather than of this app, it contains nothing that identifies you,
-and it is governed by <a href="https://www.apple.com/legal/privacy/">Apple's
-Privacy Policy</a>. You can change it in Settings → Privacy &amp; Security →
-Analytics &amp; Improvements.</p>
+<h2>Apple and Google</h2>
+<p>If you have opted in to sharing analytics with Apple, Apple may provide the
+developer with aggregate, anonymised statistics such as install counts and crash
+reports. Google Play likewise gives developers aggregate statistics, such as install
+counts and crash and ANR reports, gathered by Android and Google Play rather than by
+the app. These are services of the stores, not of Ars Serena; they identify no
+individual to the developer, and they are governed by
+<a href="https://www.apple.com/legal/privacy/">Apple's Privacy Policy</a> and
+<a href="https://policies.google.com/privacy">Google's Privacy Policy</a>.</p>
 
 <h2>Changes to this policy</h2>
-<p>If the app ever begins collecting data — which is not planned — this policy will
-be updated before that version ships, and the change will be described here with a
-new date. Material changes will also be noted in the App Store release notes.</p>
+<p>If any of the apps ever begins collecting data — which is not planned — this policy
+will be updated before that version ships, and the change will be described here
+with a new date. Material changes will also be noted in the release notes.</p>
 
 <h2>Contact</h2>
 <p>Questions, corrections or complaints about privacy:
@@ -242,7 +315,7 @@ protection authority.</p>
 
 <footer>
   Ars Serena · <a href="support.html">Support</a> ·
-  Artwork courtesy of the open-access programmes of the museums listed above.
+  Artwork courtesy of the open-access programmes of the institutions listed above.
 </footer>
 
 </div>
