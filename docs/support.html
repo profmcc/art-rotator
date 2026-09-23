@@ -191,12 +191,18 @@ picker, which gives the app only the one picture you pick.</p>
 
 <div class="q">
   <h3>My wallpaper isn't changing</h3>
-  <p>A scheduled change <strong>waits until the screen is off</strong>, so the phone
-  never recolours under your thumb. Open the app and tap <kbd>Next</kbd> to change it
-  now. Otherwise check that <kbd>Change automatically</kbd> is on and that Settings
-  shows artworks ready; if not, tap <kbd>Fetch a batch now</kbd>. Android runs
-  background work no more often than every 15 minutes, and a battery saver can delay it
-  longer.</p>
+  <p>On Android the interval is kept <strong>on the clock</strong>, whether or not you
+  are using the phone: from 1.0.26, choosing "every 15 minutes" books the next change
+  fifteen minutes from that tap, and Settings prints when the next one is due. Earlier
+  versions waited for the screen to go off, which on a phone in regular use meant the
+  wallpaper hardly changed at all. If nothing is happening, check that
+  <kbd>Change automatically</kbd> is on, that the artwork is not being
+  <kbd>held</kbd>, and that Settings shows artworks ready — if not, tap
+  <kbd>Fetch a batch now</kbd>. Fifteen minutes is the shortest interval Android
+  allows, a change can be a minute or so late, and a phone that has put the app to
+  sleep can delay it further: on Samsung phones, exclude Ars Serena under Battery →
+  Background usage limits. <kbd>Next</kbd>, in the app or on the Home screen widget,
+  always changes it at once.</p>
 </div>
 
 <div class="q">
