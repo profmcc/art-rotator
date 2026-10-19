@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An artwork — Ars Serena</title>
+
+<!-- The preview is the app's, not the artwork's, and that is a limitation
+     rather than a choice. Link previews are built by crawlers that do not run
+     JavaScript, and this page looks its artwork up in the browser — so a
+     per-artwork og:image would need a separate static page per artwork, which
+     is 763 files today and more every night.
+
+     It costs less than it looks: a share from the app attaches the picture
+     itself, so the artwork is already in the message. This link is what you
+     tap after you have seen it. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ars Serena">
+<meta property="og:title" content="An artwork on Ars Serena">
+<meta property="og:description" content="Open it in Ars Serena to keep it, or to put it on your wallpaper. Public-domain art from museums around the world — free, and nothing leaves your device.">
+<meta property="og:url" content="https://profmcc.github.io/art-rotator/a/">
+<meta property="og:image" content="https://profmcc.github.io/art-rotator/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="An artwork on Ars Serena">
+<meta name="twitter:description" content="Open it in Ars Serena to keep it, or to put it on your wallpaper.">
+<meta name="twitter:image" content="https://profmcc.github.io/art-rotator/preview.jpg">
+<meta name="theme-color" content="#131316">
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1b1b1f; --muted: #5f5f6b;
+    --line: #e4e1da; --accent: #8a6a3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131316; --card: #1a1a1f; --ink: #ececf1; --muted: #a1a1ad;
+      --line: #2c2c34; --accent: #d6b071;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 28px 16px 64px;
+  }
+  .wrap { max-width: 560px; margin: 0 auto; }
+  .mark {
+    display: block; text-align: center; letter-spacing: .18em; font-size: 12px;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    margin-bottom: 20px;
+  }
+  figure { margin: 0; }
+  .frame {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    overflow: hidden; min-height: 180px; display: flex; align-items: center;
+    justify-content: center;
+  }
+  .frame img { display: block; width: 100%; height: auto; }
+  figcaption { padding: 18px 2px 0; }
+  h1 { font-size: 22px; line-height: 1.3; margin: 0 0 6px; font-weight: 600; }
+  .by { color: var(--muted); margin: 0 0 2px; }
+  .where { color: var(--muted); font-size: 15px; margin: 0; }
+  .where a { color: var(--accent); }
+  .actions { margin-top: 26px; display: grid; gap: 10px; }
+  a.button, button.button {
+    display: block; width: 100%; text-align: center; padding: 14px 18px;
+    border-radius: 12px; text-decoration: none; font-size: 16px; font-weight: 600;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+    cursor: pointer; font-family: inherit;
+  }
+  a.primary {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+  @media (prefers-color-scheme: dark) { a.primary { color: #17130c; } }
+  .note { color: var(--muted); font-size: 14px; text-align: center; margin: 18px 0 0; }
+  .stores { display: flex; gap: 10px; }
+  .stores a { flex: 1; }
+  .problem { color: var(--muted); text-align: center; padding: 40px 0; }
+  .skeleton { width: 100%; aspect-ratio: 3 / 4; background: var(--line); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="mark" href="../">Ars Serena</a>
+
+  <figure>
+    <div class="frame" id="frame"><div class="skeleton"></div></div>
+    <figcaption>
+      <h1 id="title">Finding this artwork…</h1>
+      <p class="by" id="by"></p>
+      <p class="where" id="where"></p>
+    </figcaption>
+  </figure>
+
+  <div class="actions">
+    <!-- The app first, because somebody who has it wants the app and not a
+         web page. It stays hidden until there is an artwork to open. -->
+    <a class="button primary" id="open" hidden>Open in Ars Serena</a>
+    <div class="stores">
+      <a class="button" href="https://apps.apple.com/app/arsserena">iPhone</a>
+      <a class="button" href="https://play.google.com/store/apps/details?id=io.github.profmcc.arsserena">Android</a>
+    </div>
+  </div>
+
+  <p class="note">
+    A new artwork on your home and lock screens every hour. Free, from
+    public-domain museum collections — and nothing leaves your device.
+  </p>
+</div>
+
+<script>
+// Which shard holds an id.
+//
+// The same rule the catalogue build uses: sha256 of the id, first four bytes,
+// modulo 256. Reimplemented here rather than published as a lookup table
+// because the table would be the catalogue again, and the point of the
+// sharding is that a client fetches one file instead of all of them.
+async function shardOf(id) {
+  const bytes = new TextEncoder().encode(id);
+  const digest = new Uint8Array(await crypto.subtle.digest('SHA-256', bytes));
+  const n = (digest[0] << 24 | digest[1] << 16 | digest[2] << 8 | digest[3]) >>> 0;
+  return n % 256;
+}
+
+function text(el, value) { document.getElementById(el).textContent = value || ''; }
+
+function problem(message) {
+  document.getElementById('frame').innerHTML =
+    '<p class="problem">' + message + '</p>';
+  text('title', 'That artwork could not be found');
+  text('by', '');
+  text('where', '');
+}
+
+async function main() {
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) {
+    problem('No artwork was named in this link.');
+    return;
+  }
+  // The app link is offered whatever happens next: somebody with the app
+  // installed should not be held up by the catalogue being unreachable.
+  const open = document.getElementById('open');
+  open.href = 'arsserena://art?id=' + encodeURIComponent(id);
+  open.hidden = false;
+
+  let entry = null, museums = {};
+  try {
+    const shard = String(await shardOf(id)).padStart(3, '0');
+    // The index carries the institution names; a record only carries a code
+    // like "cma", and "cma · 1889" under a painting is a filename, not a
+    // caption. Fetched alongside rather than before, so a slow index does not
+    // hold the artwork up.
+    const [res, idxRes] = await Promise.all([
+      fetch('../catalogue/shards/' + shard + '.json'),
+      fetch('../catalogue/index.json').catch(() => null),
+    ]);
+    if (!res.ok) throw new Error(res.status);
+    const body = await res.json();
+    // Published shards are wrapped; tolerate a bare list too.
+    const entries = Array.isArray(body) ? body : (body.entries || []);
+    entry = entries.find(e => e.id === id) || null;
+    if (idxRes && idxRes.ok) museums = (await idxRes.json()).institutions || {};
+  } catch (e) {
+    problem('The catalogue could not be reached just now.');
+    return;
+  }
+  if (!entry) {
+    problem('This artwork is not in the catalogue.');
+    return;
+  }
+
+  document.title = entry.title + ' — Ars Serena';
+  text('title', entry.title);
+  text('by', entry.artist && entry.artist !== 'Unknown artist' ? entry.artist : '');
+  const where = document.getElementById('where');
+  const bits = [];
+  if (entry.year) bits.push(entry.year);
+  const museum = museums[entry.source] || entry.source;
+  if (museum) bits.push(museum);
+  where.textContent = bits.join(' · ');
+  if (entry.link) {
+    where.innerHTML = bits.join(' · ') +
+      ' — <a href="' + entry.link.replace(/"/g, '&quot;') + '">see it at the museum</a>';
+  }
+
+  if (entry.image) {
+    const img = new Image();
+    img.alt = entry.title;
+    img.src = entry.image;
+    img.onload = () => {
+      const frame = document.getElementById('frame');
+      frame.innerHTML = '';
+      frame.appendChild(img);
+    };
+    // A museum that will not serve the picture should not leave a grey box
+    // with no explanation in a page somebody was sent.
+    img.onerror = () => problem('The museum is not serving this picture just now.');
+  }
+}
+main();
+</script>
+</body>
+</html>
