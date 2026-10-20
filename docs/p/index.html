@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A shared gallery — Ars Serena</title>
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Ars Serena">
+<meta property="og:title" content="Somebody's gallery on Ars Serena">
+<meta property="og:description" content="The artworks they have kept, from museums around the world. Open it in Ars Serena to keep any of them yourself.">
+<meta property="og:url" content="https://profmcc.github.io/art-rotator/p/">
+<meta property="og:image" content="https://profmcc.github.io/art-rotator/preview.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Somebody's gallery on Ars Serena">
+<meta name="twitter:description" content="The artworks they have kept, from museums around the world.">
+<meta name="twitter:image" content="https://profmcc.github.io/art-rotator/preview.jpg">
+<meta name="theme-color" content="#131316">
+<style>
+  :root {
+    --bg: #fbfaf7; --card: #ffffff; --ink: #1b1b1f; --muted: #5f5f6b;
+    --line: #e4e1da; --accent: #8a6a3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131316; --card: #1a1a1f; --ink: #ececf1; --muted: #a1a1ad;
+      --line: #2c2c34; --accent: #d6b071;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font: 17px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    padding: 28px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .mark {
+    display: block; text-align: center; letter-spacing: .18em; font-size: 12px;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    margin-bottom: 18px;
+  }
+  h1 { font-size: 22px; margin: 0 0 4px; font-weight: 600; text-align: center; }
+  .sub { color: var(--muted); text-align: center; margin: 0 0 22px; font-size: 15px; }
+  h2 {
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--muted); margin: 26px 0 10px; font-weight: 600;
+  }
+  /* Three across, square, hairline gaps — the same wall the apps draw. */
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; }
+  /* margin: 0 is load-bearing — a <figure> carries a 40px default margin,
+     which would eat the column and leave the hairline gaps looking like
+     gutters. */
+  .tile {
+    position: relative; aspect-ratio: 1; background: var(--line);
+    overflow: hidden; display: block; margin: 0;
+  }
+  .tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tile figcaption {
+    position: absolute; inset: auto 0 0 0; padding: 6px 7px;
+    font-size: 11px; line-height: 1.3; color: #fff;
+    background: linear-gradient(transparent, rgba(0,0,0,.72));
+    opacity: 0; transition: opacity .15s;
+  }
+  .tile:hover figcaption, .tile:focus-within figcaption { opacity: 1; }
+  .actions { margin-top: 26px; display: grid; gap: 10px; }
+  a.button {
+    display: block; text-align: center; padding: 14px 18px; border-radius: 12px;
+    text-decoration: none; font-size: 16px; font-weight: 600;
+    border: 1px solid var(--line); background: var(--card); color: var(--ink);
+  }
+  a.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  @media (prefers-color-scheme: dark) { a.primary { color: #17130c; } }
+  .stores { display: flex; gap: 10px; }
+  .stores a { flex: 1; }
+  .note { color: var(--muted); font-size: 14px; text-align: center; margin: 18px 0 0; }
+  .problem { color: var(--muted); text-align: center; padding: 40px 0; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="mark" href="../">Ars Serena</a>
+  <h1 id="title">A shared gallery</h1>
+  <p class="sub" id="sub">Opening…</p>
+
+  <div id="shelves"></div>
+
+  <div class="actions">
+    <a class="button primary" id="open" hidden>Open in Ars Serena</a>
+    <div class="stores">
+      <a class="button" href="https://apps.apple.com/app/arsserena">iPhone</a>
+      <a class="button" href="https://play.google.com/store/apps/details?id=io.github.profmcc.arsserena">Android</a>
+    </div>
+  </div>
+
+  <p class="note">
+    A new artwork on your home and lock screens every hour. Free, from
+    public-domain museum collections — and nothing leaves your device.
+  </p>
+</div>
+
+<script>
+// Unpacks the grouped shelf format: cma:1,2;met:3
+//
+// The apps write this and this reads it, so the two have to agree exactly.
+// Anything malformed is skipped rather than failing the page — a gallery
+// showing nineteen of somebody's twenty artworks beats one showing an error.
+function decodeShelf(packed) {
+  if (!packed) return [];
+  const out = [];
+  for (const group of packed.split(';')) {
+    const colon = group.indexOf(':');
+    if (colon < 0) continue;
+    const source = group.slice(0, colon);
+    for (const item of group.slice(colon + 1).split(',')) {
+      if (item) out.push(source ? source + ':' + item : item);
+    }
+  }
+  return out;
+}
+
+// Which shard an id belongs to: sha256, first four bytes, modulo 256.
+async function shardOf(id) {
+  const digest = new Uint8Array(
+    await crypto.subtle.digest('SHA-256', new TextEncoder().encode(id)));
+  const n = (digest[0] << 24 | digest[1] << 16 | digest[2] << 8 | digest[3]) >>> 0;
+  return n % 256;
+}
+
+// One fetch per shard rather than per artwork. A gallery of sixty usually
+// lands in forty-odd shards, and asking for the same one twice would be
+// forty wasted requests against somebody else's CDN.
+async function lookUp(ids) {
+  const wanted = new Set(ids);
+  const shards = new Map();
+  for (const id of wanted) {
+    const n = await shardOf(id);
+    if (!shards.has(n)) shards.set(n, []);
+    shards.get(n).push(id);
+  }
+  const found = new Map();
+  await Promise.all([...shards.keys()].map(async n => {
+    try {
+      const res = await fetch('../catalogue/shards/' + String(n).padStart(3, '0') + '.json');
+      if (!res.ok) return;
+      const body = await res.json();
+      const entries = Array.isArray(body) ? body : (body.entries || []);
+      for (const e of entries) if (wanted.has(e.id)) found.set(e.id, e);
+    } catch (e) { /* a missing shard costs its artworks, not the page */ }
+  }));
+  // Back into the order they were shared in: that is the order they sit on
+  // somebody's shelf, newest first.
+  return ids.map(id => found.get(id)).filter(Boolean);
+}
+
+// Widths Wikimedia will actually serve. It no longer resizes to any width you
+// ask for: an arbitrary one answers "400 Use thumbnail sizes listed on …"
+// against a perfectly good file.
+const WIKI_WIDTHS = [120, 250, 330, 500, 1280];
+
+// The museum's small derivative rather than its master.
+//
+// Measured against the live catalogue: Cleveland's print file is 3.0 MB and
+// its web one 228 KB, the Met's original 2.0 MB against 59 KB, and SMK's
+// `image` is a download endpoint slow enough that tiles had not arrived after
+// eight seconds. Ten tiles of masters is tens of megabytes to fill ten
+// 112-pixel squares.
+//
+// The same rule the apps apply, and it has to stay the same rule — a
+// disagreement here shows somebody grey squares.
+function thumb(e, longEdge) {
+  longEdge = longEdge || 500;
+  if (e.iiif) return e.iiif + '/full/!' + longEdge + ',' + longEdge + '/0/default.jpg';
+  const image = e.image || '';
+  const source = (e.id || '').split(':')[0];
+  if (source === 'cma') return image.replace('_print.jpg', '_web.jpg');
+  if (source === 'met') return image.replace('/original/', '/web-large/');
+  if (source === 'wm' || source === 'wd') return wikimediaThumb(image, longEdge) || image;
+  return image;
+}
+
+// Either shape the catalogue holds: an original at /commons/a/ab/Name.jpg, or
+// a thumb already sized at /commons/thumb/a/ab/Name.jpg/3840px-Name.jpg. The
+// query string goes — it is campaign tracking, not part of the file. Returns
+// null when the path is neither, so the caller falls back to the full image
+// rather than requesting something invented.
+function wikimediaThumb(url, longEdge) {
+  let parts;
+  try { parts = new URL(url); } catch (err) { return null; }
+  const width = WIKI_WIDTHS.find(w => w >= longEdge) || WIKI_WIDTHS[WIKI_WIDTHS.length - 1];
+  const already = parts.pathname.match(/^(.*\/thumb\/.+?)\/\d+px-(.+)$/);
+  if (already) return parts.origin + already[1] + '/' + width + 'px-' + already[2];
+  const plain = parts.pathname.match(/^(.*)\/commons\/([0-9a-f])\/([0-9a-f]{2})\/([^/]+)$/);
+  if (!plain) return null;
+  return parts.origin + plain[1] + '/commons/thumb/' + plain[2] + '/' + plain[3] +
+    '/' + plain[4] + '/' + width + 'px-' + plain[4];
+}
+
+// How many tiles are fetched without waiting to be scrolled into view.
+//
+// One screenful. Lazy loading is right for the sixty below, and wrong for the
+// nine somebody is looking at — it defers them behind an intersection check,
+// and a check that mis-measures an empty grid leaves the whole first screen
+// blank with nothing in the console to say why.
+const EAGER_TILES = 9;
+
+function shelf(heading, entries, from) {
+  if (!entries.length) return '';
+  const tiles = entries.map((e, i) => {
+    const who = [e.artist, e.year].filter(Boolean).join(' · ');
+    const title = (e.title || '').replace(/</g, '&lt;');
+    const eager = from + i < EAGER_TILES;
+    return '<figure class="tile"><img ' +
+      (eager ? 'fetchpriority="high"' : 'loading="lazy"') +
+      ' alt="' + title + '" src="' + thumb(e) + '"><figcaption>' + title +
+      (who ? '<br>' + who.replace(/</g, '&lt;') : '') + '</figcaption></figure>';
+  }).join('');
+  return '<h2>' + heading + ' — ' + entries.length + '</h2><div class="grid">' + tiles + '</div>';
+}
+
+async function main() {
+  const q = new URLSearchParams(location.search);
+  const favourites = decodeShelf(q.get('f'));
+  const saved = decodeShelf(q.get('s'));
+
+  // Offered whatever happens next: somebody with the app should not be held
+  // up by the catalogue being unreachable.
+  const open = document.getElementById('open');
+  open.href = 'arsserena://profile?' + location.search.replace(/^\?/, '');
+  open.hidden = false;
+
+  if (!favourites.length && !saved.length) {
+    document.getElementById('sub').textContent = '';
+    document.getElementById('shelves').innerHTML =
+      '<p class="problem">This link does not name any artworks.</p>';
+    return;
+  }
+
+  const [f, s] = await Promise.all([lookUp(favourites), lookUp(saved)]);
+  const total = f.length + s.length;
+  document.getElementById('sub').textContent = total
+    ? total + ' artworks they have kept, from museums around the world.'
+    : '';
+  const html = shelf('Their favourites', f, 0) + shelf('Their saves', s, f.length);
+  document.getElementById('shelves').innerHTML = html ||
+    '<p class="problem">None of those artworks could be found in the catalogue.</p>';
+}
+main();
+</script>
+</body>
+</html>
