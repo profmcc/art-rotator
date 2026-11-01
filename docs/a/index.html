@@ -72,6 +72,10 @@
   }
   @media (prefers-color-scheme: dark) { a.primary { color: #17130c; } }
   .note { color: var(--muted); font-size: 14px; text-align: center; margin: 18px 0 0; }
+  .invite {
+    margin: 0 0 4px; text-align: center; font-size: 17px; font-weight: 600;
+    color: var(--ink);
+  }
   .stores { display: flex; gap: 10px; }
   .stores a { flex: 1; }
   .problem { color: var(--muted); text-align: center; padding: 40px 0; }
@@ -92,6 +96,13 @@
   </figure>
 
   <div class="actions">
+    <!-- Said out loud, because the page used to assume it.
+         A visitor arriving here has been sent a painting by somebody they
+         know. "Open in Ars Serena" is an instruction for people who already
+         have the app; everybody else got a picture and three buttons and had
+         to work out for themselves that the picture could be theirs. This
+         names the offer first and the app second. -->
+    <p class="invite">Put this artwork on your phone or desktop, free.</p>
     <!-- The app first, because somebody who has it wants the app and not a
          web page. It stays hidden until there is an artwork to open. -->
     <a class="button primary" id="open" hidden>Open in Ars Serena</a>
